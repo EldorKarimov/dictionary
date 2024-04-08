@@ -13,7 +13,7 @@ class Direction(BaseModel):
 
 
 class EnglishWord(BaseModel):
-    word = models.CharField(max_length=50, verbose_name='Word(en)')
+    word = models.CharField(max_length=50, unique=True, verbose_name='Word(en)')
     definition = models.CharField(max_length=255, null=True, blank=True)
     audio = models.CharField(max_length=255, null=True, blank=True)
     direction = models.ForeignKey(Direction, on_delete=models.CASCADE)
@@ -40,3 +40,11 @@ class UzbekWord(BaseModel):
 
     def __str__(self):
         return self.uzWord
+    
+    @classmethod
+    def get_uz_word_list(cls, en):
+        uz = []
+        uz_words = cls.objects.filter(enWord__word = en)
+        for i in uz_words:
+            uz.append(i.uzWord)
+        return uz

@@ -13,6 +13,9 @@ class EnglishAdmin(admin.ModelAdmin):
     list_filter = ('direction', )
     search_fields = ('word', 'direction', )
     inlines = [UzWordInline]
+    fieldsets = (
+        ("English Word", {"fields": ("word", "direction")}),
+    )
 
 @admin.register(Direction)
 class DirectionAdmin(admin.ModelAdmin):

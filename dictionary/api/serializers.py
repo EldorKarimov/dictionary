@@ -13,7 +13,6 @@ class EnglishWordSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UzbekWordSerializer(serializers.ModelSerializer):
-    enWord = EnglishWordSerializer()
     class Meta:
         model = UzbekWord
-        fields = ['id', 'uzWord', 'enWord']
+        fields = ['id', 'uzWord']
