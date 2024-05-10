@@ -17,6 +17,7 @@ class EnglishWord(BaseModel):
     definition = models.CharField(max_length=255, null=True, blank=True)
     audio = models.CharField(max_length=255, null=True, blank=True)
     direction = models.ForeignKey(Direction, on_delete=models.CASCADE)
+    is_new = models.BooleanField(default=True)
     
 
 

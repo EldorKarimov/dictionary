@@ -5,6 +5,7 @@ from dictionary.models import Direction
 class UzbekWord(BaseModel):
     word = models.CharField(max_length=50, unique=True, verbose_name="Uzbek word")
     direction = models.ForeignKey(Direction, on_delete=models.CASCADE)
+    is_new = models.BooleanField(default=True)
 
     def __str__(self):
         return self.word

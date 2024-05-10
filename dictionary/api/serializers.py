@@ -4,13 +4,21 @@ from dictionary.models import EnglishWord, UzbekWord, Direction
 class DirectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Direction
-        fields = '__all__'
+        fields = ('id', 'name', 'slug')
     
 class EnglishWordSerializer(serializers.ModelSerializer):
     direction = DirectionSerializer()
     class Meta:
         model = EnglishWord
-        fields = '__all__'
+        fields = ('id', 'word', 'definition', 'audio', 'direction', 'is_new')
+
+class EnglishWordUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EnglishWord
+        fields = ('id', 'is_new')
+        extra_kwargs = {
+            'id':{'read_only': True}
+        }
 
 class UzbekWordSerializer(serializers.ModelSerializer):
     class Meta:

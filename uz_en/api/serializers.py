@@ -6,7 +6,7 @@ class UzbekEnglishSerializer(serializers.ModelSerializer):
     direction = DirectionSerializer(read_only = True)
     class Meta:
         model = UzbekWord
-        fields = '__all__'
+        fields = ('id', 'word', 'direction', 'is_new')
         extra_kwargs = {
             'id':{'read_only':True}
         }
