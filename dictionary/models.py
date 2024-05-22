@@ -1,7 +1,7 @@
 from django.db import models
 import requests
 import json
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.exceptions import ValidationError
 
 from shared.models import BaseModel
@@ -57,7 +57,7 @@ class UzbekWord(BaseModel):
         return uz
 
 class About(BaseModel):
-    content = RichTextField()
+    content = RichTextUploadingField()
 
     def __str__(self):
         return str(self.created)
