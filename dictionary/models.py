@@ -1,6 +1,8 @@
 from django.db import models
 import requests
 import json
+from ckeditor.fields import RichTextField
+from django.core.exceptions import ValidationError
 
 from shared.models import BaseModel
 
@@ -29,11 +31,15 @@ class EnglishWord(BaseModel):
         app_key = "6c19369a08246da2faa3f61869424793"
         language = "en-gb"
         word_id = self.word
-        url = "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id.lower()
-        r = requests.get(url, headers={"app_id": app_id, "app_key": app_key})
-        res = r.json()
-        self.audio = res.get('results')[0].get('lexicalEntries')[0]['entries'][0]['pronunciations'][0]['audioFile']
-        super(EnglishWord, self).save(*args, **kwargs)
+        try:
+            url = "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id.lower()
+            r = requests.get(url, headers={"app_id": app_id, "app_key": app_key})
+            res = r.json()
+            self.audio = res.get('results')[0].get('lexicalEntries')[0]['entries'][0]['pronunciations'][0]['audioFile']
+            super(EnglishWord, self).save(*args, **kwargs)
+        except:
+            raise ValidationError("Word not found with audio")
+        
 
 class UzbekWord(BaseModel):
     uzWord = models.CharField(max_length=50, verbose_name='Word(uz)')
@@ -49,3 +55,9 @@ class UzbekWord(BaseModel):
         for i in uz_words:
             uz.append(i.uzWord)
         return uz
+
+class About(BaseModel):
+    content = RichTextField()
+
+    def __str__(self):
+        return str(self.created)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from dictionary.models import EnglishWord, UzbekWord, Direction
+from dictionary.models import EnglishWord, UzbekWord, Direction, About
 
 class DirectionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,3 +24,8 @@ class UzbekWordSerializer(serializers.ModelSerializer):
     class Meta:
         model = UzbekWord
         fields = ['id', 'uzWord']
+
+class AboutSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = About
+        fields = ('id', 'content')

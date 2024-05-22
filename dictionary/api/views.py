@@ -5,8 +5,8 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 
-from dictionary.models import UzbekWord, EnglishWord, Direction
-from .serializers import EnglishWordSerializer, EnglishWordUpdateSerializer
+from dictionary.models import UzbekWord, EnglishWord, Direction, About
+from .serializers import EnglishWordSerializer, EnglishWordUpdateSerializer, AboutSerializer
 from pprint import pprint as print
 
 
@@ -47,3 +47,14 @@ class EnglishWordUpdateAPIVIew(APIView):
             return Response(status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class AboutAPIView(APIView):
+    def get(self, request):
+        about = About.objects.all().last()
+        serializer = AboutSerializer(about)
+        data = {
+            'success':True,
+            'data':serializer.data
+        }
+        return Response(data=data, status=status.HTTP_200_OK)

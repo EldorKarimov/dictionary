@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import EnglishWord, UzbekWord, Direction
+from .models import EnglishWord, UzbekWord, Direction, About
 
 
 class UzWordInline(admin.TabularInline):
@@ -21,3 +21,5 @@ class EnglishAdmin(admin.ModelAdmin):
 class DirectionAdmin(admin.ModelAdmin):
     list_display = ['name']
     prepopulated_fields = {'slug':('name', )}
+
+admin.site.register(About)
