@@ -28,4 +28,4 @@ class UzbekWordSerializer(serializers.ModelSerializer):
 class AboutSerializer(serializers.ModelSerializer):
     class Meta:
         model = About
-        fields = ('id', 'content')
+        fields = ('id', 'content', 'share')

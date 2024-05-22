@@ -58,6 +58,7 @@ class UzbekWord(BaseModel):
 
 class About(BaseModel):
     content = RichTextUploadingField()
+    share = models.URLField(verbose_name="URL")
 
     def __str__(self):
         return str(self.created)
